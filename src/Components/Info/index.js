@@ -18,10 +18,7 @@ const Info=()=> {
     <>
       <div className="info-container">
         <div>
-          <p style={{ textAlign: "center" }}>
-            We are here for you to support you!!
-          </p>
-          {console.log(hour)}
+      
           {hour <= 12 ? (
             <h1 className="grey-color" style={{ textAlign: "center" }}>Good Morning!!</h1>
           ) : hour > 12 && hour <= 17 ? (

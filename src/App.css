@@ -36,7 +36,7 @@ body{
   background: #ddeff1; /* fallback for old browsers */
   display: flex;
   flex:1;
-  height: 300px;
+  height: 290px;
   justify-content: center;
   align-items: center;
   min-width: 200px;

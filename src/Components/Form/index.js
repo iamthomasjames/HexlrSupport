@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 import "../../App.css";
 import bug from "../../Assets/Images/bug.svg";
 import feedback from "../../Assets/Images/feedback.svg";
@@ -10,6 +10,7 @@ import loading1 from '../../Assets/Images/loading.gif'
 
 const Form = () => {
   const [supportDetails, setsupportDetails] = useState(null);
+  const myRef = useRef(null)
   const [Name, setName] = useState(null);
   const [phone, setPhone] = useState(null);
   const [email, setEmail] = useState(null);
@@ -20,7 +21,9 @@ const Form = () => {
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState('');
 
-
+  useEffect(() => {
+    document.getElementById("form-id").style.visibility='hidden'
+  }, [])
 
   const onSubmit = (e) => {
     setLoading(true)
@@ -49,6 +52,7 @@ const Form = () => {
 
   return (
     <>
+  
       <div style={{ display: "flex", justifyContent: "center" }}>
         <h1>
           So what brings you here <span className="primary-color">today?</span>
@@ -60,6 +64,8 @@ const Form = () => {
           <div
             className="support-container swing"
             onClick={() => {
+              document.getElementById("form-id").style.visibility='visible'
+              myRef.current.scrollIntoView()
               setReason("Report a bug");
               setColor('#642b73')
             }}
@@ -70,6 +76,9 @@ const Form = () => {
           <div
             className="support-container swing"
             onClick={() => {
+              document.getElementById("form-id").style.visibility='visible'
+              myRef.current.scrollIntoView()
+              
               setReason("General queries")
               setColor('tomato')
             }}
@@ -80,6 +89,8 @@ const Form = () => {
           <div
             className="support-container swing"
             onClick={() => {
+              document.getElementById("form-id").style.visibility='visible'
+              myRef.current.scrollIntoView()
               setReason("Feedback")
               setColor('#1F4788')
             }}
@@ -90,6 +101,8 @@ const Form = () => {
           <div
             className="support-container swing"
             onClick={() => {
+              document.getElementById("form-id").style.visibility='visible'
+              myRef.current.scrollIntoView()
               setReason("Ask for a feature")
               setColor('#35BDD0')
             }}
@@ -101,107 +114,109 @@ const Form = () => {
         </div>
       </div>
       {
+        !loading &&  (
+          <div ref={myRef} style={{ backgroundColor: `${color}`, padding: "10px 0px 10px 0px" }} id="form-id">
+          <h1 style={{color:"white"}}>{reson}</h1>
+          <div className="container">
+            <form>
+              <ul className="flex-outer" style={{backgroundColor:`${color}`}}>
+                <li>
+                  <label for="first-name">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    className="input-border"
+                    placeholder="Enter your name here"
+                    required
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                  />
+                </li>
+                <li>
+                  <label for="last-name">Phone</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    className="input-border"
+                    placeholder="Enter your phone here"
+                    onChange={(e) => {
+                      setPhone(e.target.value);
+                    }}
+                  />
+                </li>
+                <li>
+                  <label for="email">Email</label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="input-border"
+                    placeholder="Enter your email here"
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
+                  />
+                </li>
+                <li>
+                  <label for="phone">Company/Website</label>
+                  <input
+                    type="text"
+                    id="comapany"
+                    className="input-border"
+                    placeholder="Enter your company/website here"
+                    onChange={(e) => {
+                      setCompany(e.target.value);
+                    }}
+                  />
+                </li>
+                <li>
+                  <label for="message">{reson}</label>
+                  <textarea
+                    rows="6"
+                    id="message"
+                    className="input-border"
+                    placeholder="Enter description here"
+                    onChange={(e) => {
+                      setDesc(e.target.value);
+                    }}
+                  ></textarea>
+                </li>
+                <br />
+                <li>
+                  <button
+                    style={{
+                      width: "100%",
+                      backgroundColor: "green",
+                      height: "50px",
+                      borderStartEndRadius: "20px",
+                    }}
+                    type="submit"
+                    onClick={onSubmit}
+                  >
+                    Submit
+                  </button>
+                </li>
+              </ul>
+            </form>
+          </div>
+        </div>
+        )
+      }
+        
+         
+       
+       {
          token && (
-          <div style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column", backgroundColor:"tomato",color:"white",height:"70px"}}>
-          <span>Please take a note of your token number : {token}</span>
+          <div style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column", backgroundColor:"tomato",color:"white",height:"70px",paddingLeft:"10px",paddingRight:"10px"}}>
+          <span>Please take a note of your token number : <span style={{backgroundColor:"green",color:"white",borderRadius:"30px",padding:"10px"}}>{token}</span></span>
         </div>
          )
        }
-      {
-         (!loading  && reson) && (
-          <div style={{ backgroundColor: `${color}`, padding: "10px 0px 10px 0px" }}>
-        <h1 style={{color:"white"}}>{reson}</h1>
-        <div className="container">
-          <form>
-            <ul className="flex-outer" style={{backgroundColor:`${color}`}}>
-              <li>
-                <label for="first-name">Name</label>
-                <input
-                  type="text"
-                  id="first-name"
-                  className="input-border"
-                  placeholder="Enter your name here"
-                  required
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
-                />
-              </li>
-              <li>
-                <label for="last-name">Phone</label>
-                <input
-                  type="text"
-                  id="last-name"
-                  className="input-border"
-                  placeholder="Enter your phone here"
-                  onChange={(e) => {
-                    setPhone(e.target.value);
-                  }}
-                />
-              </li>
-              <li>
-                <label for="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  className="input-border"
-                  placeholder="Enter your email here"
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                  }}
-                />
-              </li>
-              <li>
-                <label for="phone">Company/Website</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  className="input-border"
-                  placeholder="Enter your company/website here"
-                  onChange={(e) => {
-                    setCompany(e.target.value);
-                  }}
-                />
-              </li>
-              <li>
-                <label for="message">{reson}</label>
-                <textarea
-                  rows="6"
-                  id="message"
-                  className="input-border"
-                  placeholder="Enter description here"
-                  onChange={(e) => {
-                    setDesc(e.target.value);
-                  }}
-                ></textarea>
-              </li>
-              <br />
-              <li>
-                <button
-                  style={{
-                    width: "100%",
-                    backgroundColor: "green",
-                    height: "50px",
-                    borderStartEndRadius: "20px",
-                  }}
-                  type="submit"
-                  onClick={onSubmit}
-                >
-                  Submit
-                </button>
-              </li>
-            </ul>
-          </form>
-        </div>
-      </div>
-        )
-      }
      
       {
         loading && ( <div style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
-        <img src={loading1} width="200px" height="200px" alt="loading"/>
+        <img src={loading1}  alt="loading"/>
         <span>Submitting your data</span>
-        <span>X</span>
       </div>)
       }
      
