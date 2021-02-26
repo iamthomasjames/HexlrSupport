@@ -279,7 +279,14 @@ const Form = () => {
       
        <br/>
        
-       <div style={{display:"flex" ,width:"200px",height:"50px",backgroundColor:"green",justifyContent:"center",alignItems:"center",borderRadius:"20px",color:"white",marginRight:"5px",marginLeft:"5px"}}>
+       <div onClick={()=>{
+
+navigator.clipboard.writeText(token).then(function() {
+  alert("token copied")
+}, function(err) {
+  console.error('Async: Could not copy text: ', err);
+});
+}} style={{display:"flex" ,width:"200px",height:"50px",backgroundColor:"green",justifyContent:"center",alignItems:"center",borderRadius:"20px",color:"white",marginRight:"5px",marginLeft:"5px"}}>
               Copy token
             </div>
             <Link to="/track">
