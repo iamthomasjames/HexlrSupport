@@ -29,29 +29,37 @@ const Form = () => {
   }, [])
 
   const onSubmit = (e) => {
+    e.preventDefault();
     if(Name&&phone&&email&&company&&reson&&desc){
-      setLoading(true)
-      e.preventDefault();
-     
-      const supportValues = {
-        name: Name,
-        phone: phone,
-        email: email,
-        company: company,
-        description: desc,
-        reason: "Bug",
-      };
-      axios
-        .post("https://trusting-dubinsky-942dd3.netlify.app/add/", supportValues)
-        .then(function (response) {
-          setLoading(false);
-          setToken(response.data);
-          console.log(response);
-        })
-        .catch(err=>{
-          setLoading(false);
-          
-        })
+      if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email))
+  {
+    setLoading(true)
+   
+   
+    const supportValues = {
+      name: Name,
+      phone: phone,
+      email: email,
+      company: company,
+      description: desc,
+      reason: reson,
+    };
+    axios
+      .post("https://trusting-dubinsky-942dd3.netlify.app/add/", supportValues)
+      .then(function (response) {
+        setLoading(false);
+        setToken(response.data);
+        console.log(response);
+      })
+      .catch(err=>{
+        setLoading(false);
+        
+      })
+  }
+  else{
+    alert("please enter a valid mail address")
+  }
+    
     }
     else{
       alert("Please fill all fields")
@@ -61,8 +69,10 @@ const Form = () => {
 
   return (
     <>
-  
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      {
+        !token && (
+          <div>
+ <div style={{ display: "flex", justifyContent: "center" }}>
         <h1>
           So what brings you here <span className="primary-color">today?</span>
         </h1>
@@ -87,7 +97,6 @@ const Form = () => {
             onClick={() => {
               document.getElementById("form-id").style.visibility='visible'
               myRef.current.scrollIntoView()
-              
               setReason("General queries")
               setColor('tomato')
             }}
@@ -122,6 +131,10 @@ const Form = () => {
           </div>
         </div>
       </div>
+          </div>
+        )
+      }
+     
       {
         ( !loading && !token)  && (
           <div ref={myRef} style={{ backgroundColor: `${color}`, padding: "10px 0px 10px 0px" }} id="form-id">
