@@ -40,7 +40,7 @@ const Form = () => {
       name: Name,
       phone: phone,
       email: email,
-      company: company,
+      comapny: company,
       description: desc,
       reason: reson,
     };
