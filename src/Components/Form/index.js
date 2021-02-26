@@ -226,7 +226,7 @@ const Form = () => {
       }
       {
         token && (
-<div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",marginBottom:"10px"}}>
+<div style={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",marginBottom:"10px",paddingBottom:"20px"}}>
         <div class="card">
       <svg xmlns="http://www.w3.org/2000/svg" width="260" height="241" viewBox="0 0 2876.0933 2666.6667" class="top">
         <path d="M0 2666.667h2876.093V0H0v2666.667" fill="#fff" />
