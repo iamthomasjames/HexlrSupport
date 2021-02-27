@@ -11,7 +11,7 @@ const Info=()=> {
   const getHour = () => {
     const date = new Date();
     const hour = date.getHours();
-    console.log(hour)
+    sessionStorage.setItem('localtime',hour)
     setHour(hour);
   };
   return (
