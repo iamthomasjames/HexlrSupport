@@ -1,6 +1,7 @@
 import '../../App.css'
 import {useState,useEffect} from 'react'
 import axios from 'axios'
+import triangle from '../../Assets/Images/triangle.svg'
 
 const Track =()=>{
 
@@ -53,12 +54,16 @@ const Track =()=>{
     <th>Name</th>
     <th>Email</th>
     <th>Status</th>
+    <th>Give alert</th>
   </tr>
  
         <tr>
         <td>{name}</td>
         <td>{email}</td>
         <td>{status}</td>
+        <td onClick={()=>{
+            alert('We have given alert to our associate. You will get a call/message with the details soon!!')
+        }}>{name &&(<img src={triangle} alt="" width="25px" height="25px"/>)}</td>
        
       </tr>
  

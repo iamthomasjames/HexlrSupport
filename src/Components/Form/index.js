@@ -77,6 +77,11 @@ const Form = () => {
           So what brings you here <span className="primary-color">today?</span>
         </h1>
       </div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <h3 style={{color:'#666666'}}>
+          Pick below option to continue :)
+        </h3>
+      </div>
 
       <div className="form-container">
         <div className="form-style">
