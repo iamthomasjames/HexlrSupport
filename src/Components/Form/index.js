@@ -14,7 +14,7 @@ const Form = () => {
   const [supportDetails, setsupportDetails] = useState(null);
   const myRef = useRef(null);
   const [Name, setName] = useState(null);
-  const [phone, setPhone] = useState(null);
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState(null);
   const [company, setCompany] = useState(null);
   const [desc, setDesc] = useState(null);
@@ -34,6 +34,7 @@ const Form = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    console.log(phone.length)
     if (Name && phone && email && company && reson && desc) {
       if (
         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
