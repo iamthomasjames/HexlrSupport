@@ -24,24 +24,35 @@ const Form = () => {
   const [token, setToken] = useState("");
 
   useEffect(() => {
-    if (
-      sessionStorage.getItem("localtime") >= 9 &&
-      sessionStorage.getItem("localtime") <= 18
-    ) {
-      document.getElementById("form-id").style.display = "none";
-    }
+    // if (
+    //   sessionStorage.getItem("localtime") >= 9 &&
+    //   sessionStorage.getItem("localtime") <= 18
+    // ) {
+    //   document.getElementById("form-id").style.display = "none";
+    // }
   }, []);
+  function CheckIndianNumber(b)   
+  {  
+      var a = /^\d{10}$/;  
+      if (a.test(b))   
+      {  
+          return true;
+      }   
+      else   
+      {  
+          return false; 
+      }  
+  };  
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(phone.length)
     if (Name && phone && email && company && reson && desc) {
       if (
         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
           email
         )
       ) {
-        if(phone.length===10 && Number.isInteger(phone))
+        if(CheckIndianNumber(phone))
         {
           setLoading(true);
 
@@ -60,8 +71,8 @@ const Form = () => {
             )
             .then(function (response) {
               setLoading(false);
-              setToken(response.data);
-              console.log(response);
+              setToken(response.data[0].token);
+              //console.log(response.data);
             })
             .catch((err) => {
               setLoading(false);
@@ -82,7 +93,7 @@ const Form = () => {
   return (
     <>
       {sessionStorage.getItem("localtime") >= 9 &&
-      sessionStorage.getItem("localtime") <= 18 ? (
+      sessionStorage.getItem("localtime") >= 18 ? (
         <>
           {(!token && !loading) && (
             <div>
