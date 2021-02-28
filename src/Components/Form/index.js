@@ -421,9 +421,9 @@ const Form = () => {
                     token : {token}
                   </div>
                   <div class="info">
+                    We have sent a mail with token details. Please refer the mail to track the live update,<br/>
                     Our assosiates will connect you soon. You can track your
-                    status by giving the token in tracking area Please be ready
-                    with your queries, Average wait time : 2 hours
+                    status by giving the token in tracking area <br /><br/> Average wait time : <span style={{color:"tomato",fontSize:"20px"}}>2 hours</span>
                   </div>
                 </div>
                 <div class="buttons" style={{paddingBottom:"30px"}}>
@@ -444,7 +444,7 @@ const Form = () => {
                       display: "flex",
                       width: "200px",
                       height: "50px",
-                      backgroundColor: "green",
+                      backgroundColor: "#50BFA5",
                       justifyContent: "center",
                       alignItems: "center",
                       borderRadius: "20px",
