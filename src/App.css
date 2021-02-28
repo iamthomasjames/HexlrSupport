@@ -477,6 +477,7 @@ swing:active{
 }
 .title1 {
   align-items: center;
+  justify-content: center;
   display: flex;
   font-size: 28px;
   font-weight: bold;
