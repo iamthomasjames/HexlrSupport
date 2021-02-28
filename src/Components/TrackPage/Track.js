@@ -49,26 +49,29 @@ const Track =()=>{
              <div>
                  <p>Sorry, we could'nt find your record. Please re-check your token</p>
              </div>)}
-             <table>
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Status</th>
-    <th>Give alert</th>
-  </tr>
+             {name && (
+   <table>
+   <tr>
+     <th>Name</th>
+     <th>Email</th>
+     <th>Status</th>
+     <th>Give alert</th>
+   </tr>
+  
+         <tr>
+         <td>{name}</td>
+         <td>{email}</td>
+         <td>{status}</td>
+         <td onClick={()=>{
+             alert('We have given alert to our associate. You will get a call/message with the details soon!!')
+         }}>{name &&(<img src={triangle} alt="" width="25px" height="25px"/>)}</td>
+        
+       </tr>
+  
  
-        <tr>
-        <td>{name}</td>
-        <td>{email}</td>
-        <td>{status}</td>
-        <td onClick={()=>{
-            alert('We have given alert to our associate. You will get a call/message with the details soon!!')
-        }}>{name &&(<img src={triangle} alt="" width="25px" height="25px"/>)}</td>
-       
-      </tr>
- 
-
-</table>
+ </table>
+             )}
+          
 
          </div>
         </>

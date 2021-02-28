@@ -24,12 +24,12 @@ const Form = () => {
   const [token, setToken] = useState("");
 
   useEffect(() => {
-    // if (
-    //   sessionStorage.getItem("localtime") >= 9 &&
-    //   sessionStorage.getItem("localtime") <= 18
-    // ) {
-    //   document.getElementById("form-id").style.display = "none";
-    // }
+    if (
+      sessionStorage.getItem("localtime") >= 9 &&
+      sessionStorage.getItem("localtime") <= 18
+    ) {
+      document.getElementById("form-id").style.display = "none";
+    }
   }, []);
   function CheckIndianNumber(b)   
   {  
@@ -92,8 +92,8 @@ const Form = () => {
 
   return (
     <>
-      {sessionStorage.getItem("localtime") <= 9 &&
-      sessionStorage.getItem("localtime") >= 0 ? (
+      {sessionStorage.getItem("localtime") >= 9 &&
+      sessionStorage.getItem("localtime") <= 18 ? (
         <>
           {(!token && !loading) && (
             <div>

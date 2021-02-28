@@ -7,9 +7,9 @@ import logo from '../../Assets/Images/logo.png'
 export default function index() {
     return (
         <div className="container1">
-              <Link to="/">
+              <a  href="https://hexlr.com">
               <img src={logo} alt="logo" width="140px" height="100px"/>
-              </Link>
+              </a>
              <Link to="/track">
              <div style={{display:"flex" ,width:"200px",height:"50px",backgroundColor:"green",justifyContent:"center",alignItems:"center",borderRadius:"20px",color:"white",marginTop:"30px"}}>
               Track token
