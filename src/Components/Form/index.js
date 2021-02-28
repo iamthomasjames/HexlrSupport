@@ -40,29 +40,36 @@ const Form = () => {
           email
         )
       ) {
-        setLoading(true);
+        if(phone.length===10 && Number.isInteger(phone))
+        {
+          setLoading(true);
 
-        const supportValues = {
-          name: Name,
-          phone: phone,
-          email: email,
-          comapny: company,
-          description: desc,
-          reason: reson,
-        };
-        axios
-          .post(
-            "https://trusting-dubinsky-942dd3.netlify.app/add/",
-            supportValues
-          )
-          .then(function (response) {
-            setLoading(false);
-            setToken(response.data);
-            console.log(response);
-          })
-          .catch((err) => {
-            setLoading(false);
-          });
+          const supportValues = {
+            name: Name,
+            phone: phone,
+            email: email,
+            comapny: company,
+            description: desc,
+            reason: reson,
+          };
+          axios
+            .post(
+              "https://trusting-dubinsky-942dd3.netlify.app/add/",
+              supportValues
+            )
+            .then(function (response) {
+              setLoading(false);
+              setToken(response.data);
+              console.log(response);
+            })
+            .catch((err) => {
+              setLoading(false);
+            });
+        }
+        else {
+          alert('Please enter a valid phone number');
+        }
+        
       } else {
         alert("please enter a valid mail address");
       }
@@ -76,7 +83,7 @@ const Form = () => {
       {sessionStorage.getItem("localtime") >= 9 &&
       sessionStorage.getItem("localtime") <= 18 ? (
         <>
-          {!token && (
+          {(!token && !loading) && (
             <div>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <h1>
