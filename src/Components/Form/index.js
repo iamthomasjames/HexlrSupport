@@ -22,14 +22,16 @@ const Form = () => {
   const [color, setColor] = useState("#d5e1e2");
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState("");
+  const [initialLoad, setInitailLoad] = useState(true);
+
 
   useEffect(() => {
-    if (
-      sessionStorage.getItem("localtime") >= 9 &&
-      sessionStorage.getItem("localtime") <= 18
-    ) {
-      document.getElementById("form-id").style.display = "none";
-    }
+    // if (
+    //   sessionStorage.getItem("localtime") >= 9 &&
+    //   sessionStorage.getItem("localtime") <= 18
+    // ) {
+    //   document.getElementById("form-id").style.display = "none";
+    // }
   }, []);
   function CheckIndianNumber(b)   
   {  
@@ -95,7 +97,7 @@ const Form = () => {
       {sessionStorage.getItem("localtime") >= 9 &&
       sessionStorage.getItem("localtime") <= 18 ? (
         <>
-          {(!token && !loading) && (
+          {(!token && !loading ) && (
             <div>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <h1>
@@ -119,6 +121,7 @@ const Form = () => {
                       myRef.current.scrollIntoView();
                       setReason("Report a bug");
                       setColor("#642b73");
+                      setInitailLoad(false);
                     }}
                   >
                     <img src={bug} height="50px" width="50px" alt="bug" />
@@ -132,6 +135,7 @@ const Form = () => {
                       myRef.current.scrollIntoView();
                       setReason("General queries");
                       setColor("tomato");
+                      setInitailLoad(false);
                     }}
                   >
                     <img src={question} height="50px" width="50px" alt="bug" />
@@ -145,6 +149,7 @@ const Form = () => {
                       myRef.current.scrollIntoView();
                       setReason("Feedback");
                       setColor("#1F4788");
+                      setInitailLoad(false);
                     }}
                   >
                     <img src={feedback} height="50px" width="50px" alt="bug" />
@@ -158,6 +163,7 @@ const Form = () => {
                       myRef.current.scrollIntoView();
                       setReason("Ask for a feature");
                       setColor("#35BDD0");
+                      setInitailLoad(false);
                     }}
                   >
                     {console.log(color)}
@@ -169,12 +175,13 @@ const Form = () => {
             </div>
           )}
 
-          {!loading && !token && (
+          {(!loading && !token ) && (
             <div
               ref={myRef}
               style={{
                 backgroundColor: `${color}`,
                 padding: "10px 0px 10px 0px",
+                display:"none"
               }}
               id="form-id"
             >
