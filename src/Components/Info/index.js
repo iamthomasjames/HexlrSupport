@@ -2,23 +2,12 @@ import React, { useState, useEffect } from "react";
 import "../../App.css";
 import wave from "../../Assets/Images/Wave.svg";
 const Info=()=> {
-  const [hour, setHour] = useState(null);
-
-  useEffect(() => {
-    getHour();
-  }, []);
-
-  const getHour = () => {
-    const date = new Date();
-    const hour = date.getHours();
-    sessionStorage.setItem('localtime',hour)
-    setHour(hour);
-  };
+ const hour = localStorage.getItem("localtime");
   return (
     <>
       <div className="info-container">
         <div>
-      
+          
           {hour <= 12 ? (
             <h1 className="grey-color" style={{ textAlign: "center" }}>Good Morning!!</h1>
           ) : hour > 12 && hour <= 17 ? (

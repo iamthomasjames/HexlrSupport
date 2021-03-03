@@ -11,6 +11,7 @@ import sleep from "../../Assets/Images/sleep.svg";
 import { Link } from "react-router-dom";
 
 const Form = () => {
+  let date= new Date();
   const [supportDetails, setsupportDetails] = useState(null);
   const myRef = useRef(null);
   const [Name, setName] = useState(null);
@@ -94,8 +95,8 @@ const Form = () => {
 
   return (
     <>
-      {sessionStorage.getItem("localtime") >= 9 &&
-      sessionStorage.getItem("localtime") <= 18 ? (
+      { date.getHours() >= 9 &&
+      date.getHours() <= 18 ? (
         <>
           {(!token && !loading ) && (
             <div>
