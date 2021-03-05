@@ -17,7 +17,10 @@ const BillPage = () => {
   const [totalbill, setTotalBill] = useState();
   const [totalAmount, settotalAmount] = useState();
   const ref = React.createRef();
- 
+  const options = {
+    orientation: 'landscape',
+   
+};
 
   const convertToIndian = (x) => {
     x = x.toString();
@@ -173,7 +176,7 @@ const BillPage = () => {
     <>
       {isGenerated ? (
         <>
-          <Pdf targetRef={ref} filename="code-example.pdf">
+          <Pdf targetRef={ref} filename="code-example.pdf"  scale={0.56}>
             {({ toPdf }) => <button onClick={toPdf}>Generate Pdf</button>}
           </Pdf>
           <div style={{ }} ref={ref}>
@@ -324,7 +327,7 @@ const BillPage = () => {
               </div>
             </div>
             <br />
-            <hr />
+          
           </div>
         </>
       ) : (
