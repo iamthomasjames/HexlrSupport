@@ -9,19 +9,21 @@ import {
 import Entry from './Entry'
 import Track from './Components/TrackPage/Track'
 import Info from "./Components/Info";
+import Bill from "./Components/BillPage";
 
 function App() {
   return (
     <>
       <Router>
-      <Header />
-      <Info/>
         <Switch>
           <Route path="/" exact>
             <Entry />
           </Route>
           <Route path="/track" exact>
             <Track />
+          </Route>
+          <Route path="/bill" exact>
+            <Bill />
           </Route>
         </Switch>
 
