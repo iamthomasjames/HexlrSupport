@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../../App.css";
 import wave from "../../Assets/Images/Wave.svg";
+import {
+  Link
+} from "react-router-dom";
 const Info=()=> {
  const hour = new Date();
   return (
@@ -20,7 +23,7 @@ const Info=()=> {
           <p style={{ textAlign: "center" }}>
             We are providing service support to all our clients with minimum
             waiting. Once you submit your queries you will get a call back from
-            our assosiates.
+            our  <Link to="/bill" style={{color:"black"}}>assosiates.</Link>
           </p>
         </div>
       </div>
