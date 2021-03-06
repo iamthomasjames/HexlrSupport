@@ -11,7 +11,7 @@ export default function index() {
               <img src={logo} alt="logo" width="140px" height="100px"/>
               </a>
              <Link to="/track">
-             <div style={{display:"flex" ,width:"200px",height:"50px",backgroundColor:"green",justifyContent:"center",alignItems:"center",borderRadius:"20px",color:"white",marginTop:"30px"}}>
+             <div style={{display:"flex" ,width:"200px",height:"50px",backgroundColor:"#184A7E",justifyContent:"center",alignItems:"center",borderRadius:"20px",color:"white",marginTop:"30px"}}>
               Track token
             </div>
              </Link>
