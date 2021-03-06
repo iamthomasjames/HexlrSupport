@@ -23,7 +23,7 @@ const Info=()=> {
           <p style={{ textAlign: "center" }}>
             We are providing service support to all our clients with minimum
             waiting. Once you submit your queries you will get a call back from
-            our  <Link to="/bill" style={{color:"black"}}>assosiates.</Link>
+            our  assosiates.
           </p>
         </div>
       </div>
