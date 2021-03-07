@@ -110,6 +110,7 @@ const Form = () => {
             comapny: company,
             description: desc,
             reason: reson,
+            url:avartarURL
           };
           axios
             .post(
@@ -300,6 +301,7 @@ const Form = () => {
                           color: "black",
                           paddingLeft: 90,
                           width:"100px",
+                          height:40,
                           borderRadius: 25,
                         }}
                       >
