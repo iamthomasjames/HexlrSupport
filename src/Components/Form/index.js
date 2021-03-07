@@ -9,9 +9,13 @@ import axios from "axios";
 import loading1 from "../../Assets/Images/loading.gif";
 import sleep from "../../Assets/Images/sleep.svg";
 import { Link } from "react-router-dom";
+import firebase from "firebase";
+import FileUploader from "react-firebase-file-uploader";
+import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadButton";
+import file from '../../Assets/Images/file.svg'
 
 const Form = () => {
-  let date= new Date();
+  let date = new Date();
   const [supportDetails, setsupportDetails] = useState(null);
   const myRef = useRef(null);
   const [Name, setName] = useState(null);
@@ -24,8 +28,28 @@ const Form = () => {
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState("");
   const [initialLoad, setInitailLoad] = useState(true);
+  const [username, setUsername] = useState("");
+  const [avatar, setAvatar] = useState("");
+  const [isUploading, setIsUploading] = useState("");
+  const [progress, setProgress] = useState(0);
+  const [avartarURL, setAvatarURL] = useState("");
+  const fileUpload = React.createRef();
 
+  const config = {
+    apiKey: "AIzaSyBPMrNp4qYbnlZQI4-EJyZ4KBY6TMMDPXI",
+    authDomain: "hexlrsupport.firebaseapp.com",
+    projectId: "hexlrsupport",
+    storageBucket: "hexlrsupport.appspot.com",
+    messagingSenderId: "295082554736",
+    appId: "1:295082554736:web:8ee950647053b6c959cbb5",
+    measurementId: "G-ZWL6S2ZGSY",
+  };
 
+  if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+  } else {
+    firebase.app(); // if already initialized, use that one
+  }
   useEffect(() => {
     // if (
     //   sessionStorage.getItem("localtime") >= 9 &&
@@ -34,18 +58,39 @@ const Form = () => {
     //   document.getElementById("form-id").style.display = "none";
     // }
   }, []);
-  function CheckIndianNumber(b)   
-  {  
-      var a = /^\d{10}$/;  
-      if (a.test(b))   
-      {  
-          return true;
-      }   
-      else   
-      {  
-          return false; 
-      }  
-  };  
+  function CheckIndianNumber(b) {
+    var a = /^\d{10}$/;
+    if (a.test(b)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const showFileUpload = () => {
+    fileUpload.current.onUploadStart();
+  };
+
+  const handleUploadStart = () => {
+    setIsUploading(true);
+    setProgress(0);
+  };
+  const handleProgress = (progress) => setProgress(progress);
+  const handleUploadError = (error) => {
+    setIsUploading(false);
+    console.error(error);
+  };
+  const handleUploadSuccess = (filename) => {
+    setAvatar(filename);
+    setProgress(100);
+    setIsUploading(false);
+    firebase
+      .storage()
+      .ref("images")
+      .child(filename)
+      .getDownloadURL()
+      .then((url) => setAvatarURL(url));
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -55,8 +100,7 @@ const Form = () => {
           email
         )
       ) {
-        if(CheckIndianNumber(phone))
-        {
+        if (CheckIndianNumber(phone)) {
           setLoading(true);
 
           const supportValues = {
@@ -80,11 +124,9 @@ const Form = () => {
             .catch((err) => {
               setLoading(false);
             });
+        } else {
+          alert("Please enter a valid phone number");
         }
-        else {
-          alert('Please enter a valid phone number');
-        }
-        
       } else {
         alert("please enter a valid mail address");
       }
@@ -95,10 +137,9 @@ const Form = () => {
 
   return (
     <>
-      { date.getHours() >= 9 &&
-      date.getHours() <= 18 ? (
+      {date.getHours() >= 9 && date.getHours() <= 18 ? (
         <>
-          {(!token && !loading ) && (
+          {!token && !loading && (
             <div>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <h1>
@@ -176,13 +217,13 @@ const Form = () => {
             </div>
           )}
 
-          {(!loading && !token ) && (
+          {!loading && !token && (
             <div
               ref={myRef}
               style={{
                 backgroundColor: `${color}`,
                 padding: "10px 0px 10px 0px",
-                display:"none"
+                display: "none",
               }}
               id="form-id"
             >
@@ -196,6 +237,7 @@ const Form = () => {
                     <li>
                       <label for="first-name">Name</label>
                       <input
+                        style={{ borderRadius: "30px" }}
                         type="text"
                         id="name"
                         className="input-border"
@@ -233,6 +275,7 @@ const Form = () => {
                     <li>
                       <label for="phone">Company/Website</label>
                       <input
+                        style={{ borderRadius: "30px" }}
                         type="text"
                         id="comapany"
                         className="input-border"
@@ -241,6 +284,27 @@ const Form = () => {
                           setCompany(e.target.value);
                         }}
                       />
+                    </li>
+                    <li>
+                      <label for="phone">Upload if any</label>
+                     
+                      <CustomUploadButton
+                        
+                        storageRef={firebase.storage().ref("images")}
+                        onUploadStart={handleUploadStart}
+                        onUploadError={handleUploadError}
+                        onUploadSuccess={handleUploadSuccess}
+                        onProgress={handleProgress}
+                        style={{
+                          backgroundColor: "white",
+                          color: "black",
+                          paddingLeft: 90,
+                          width:"100px",
+                          borderRadius: 25,
+                        }}
+                      >
+                     <img src={file} width="30px" height="30px" alt=""/>
+                      </CustomUploadButton>
                     </li>
                     <li>
                       <label for="message">{reson}</label>
@@ -259,7 +323,7 @@ const Form = () => {
                       <button
                         style={{
                           width: "100%",
-                          backgroundColor: "green",
+                          backgroundColor: "steelblue",
                           height: "50px",
                           borderStartEndRadius: "20px",
                         }}
@@ -429,12 +493,18 @@ const Form = () => {
                     token : {token}
                   </div>
                   <div class="info">
-                    We have sent a mail with token details. Please refer the mail to track the live update,<br/>
+                    We have sent a mail with token details. Please refer the
+                    mail to track the live update,
+                    <br />
                     Our assosiates will connect you soon. You can track your
-                    status by giving the token in tracking area <br /><br/> Average wait time : <span style={{color:"tomato",fontSize:"20px"}}>2 hours</span>
+                    status by giving the token in tracking area <br />
+                    <br /> Average wait time :{" "}
+                    <span style={{ color: "tomato", fontSize: "20px" }}>
+                      2 hours
+                    </span>
                   </div>
                 </div>
-                <div class="buttons" style={{paddingBottom:"30px"}}>
+                <div class="buttons" style={{ paddingBottom: "30px" }}>
                   <br />
 
                   <div
@@ -481,7 +551,6 @@ const Form = () => {
                       Track token
                     </div>
                   </Link>
-                  
                 </div>
               </div>
             </div>
@@ -509,10 +578,20 @@ const Form = () => {
             flexDirection: "column",
           }}
         >
-          <img src={sleep} alt="" width="100%" height="300px" />
-          <h3 style={{ alignSelf: "center" }}>
+          <h3
+            style={{
+              alignSelf: "center",
+              textAlign: "center",
+              padding: "20px",
+            }}
+          >
             Sorry,You are outside our Business Hours(9AM-6PM)
           </h3>
+          <br />
+          <img src={sleep} alt="" width="100%" height="300px" />
+
+          <br />
+          <br />
         </div>
       )}
     </>
