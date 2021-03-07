@@ -12,13 +12,13 @@ const Info=()=> {
         <div>
           
           {hour.getHours() <= 12 ? (
-            <h1 className="grey-color" style={{ textAlign: "center" }}>Good Morning!!</h1>
+            <h1 className="grey-color" style={{ textAlign: "center" }}>Welcome back, Good Morning!!</h1>
           ) : hour.getHours() > 12 && hour.getHours() <= 17 ? (
-            <h1 className="grey-color" style={{ textAlign: "center" }}>Good Afternoon!!</h1>
+            <h1 className="grey-color" style={{ textAlign: "center" }}>Welcome back,Good Afternoon!!</h1>
           ) : hour.getHours() > 17 && hour.getHours() <= 19 ? (
-            <h1 className="grey-color" style={{ textAlign: "center" }}>Good Evening!!</h1>
+            <h1 className="grey-color" style={{ textAlign: "center" }}>Welcome back,Good Evening!!</h1>
           ) : (
-            <h1 className="grey-color" style={{ textAlign: "center" }}>Good Night!!</h1>
+            <h1 className="grey-color" style={{ textAlign: "center" }}>Welcome back,Good Night!!</h1>
           )}
           <p style={{ textAlign: "center" }}>
            We provides best quality support to our clients with minimum wait time. Once you submit your queries with us you will be recived with a token which can be tracked from this portal.
