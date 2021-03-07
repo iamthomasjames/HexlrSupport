@@ -21,9 +21,8 @@ const Info=()=> {
             <h1 className="grey-color" style={{ textAlign: "center" }}>Good Night!!</h1>
           )}
           <p style={{ textAlign: "center" }}>
-            We are providing service support to all our clients with minimum
-            waiting. Once you submit your queries you will get a call back from
-            our  assosiates.
+           We provides best quality support to our clients with minimum wait time. Once you submit your queries with us you will be recived with a token which can be tracked from this portal.
+          
           </p>
         </div>
       </div>
