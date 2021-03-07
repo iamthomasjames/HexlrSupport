@@ -351,7 +351,7 @@ const Form = () => {
                 paddingBottom: "50px",
               }}
             >
-              <div class="card">
+              <div class="card" style={{width:"90%"}}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="260"
@@ -490,11 +490,11 @@ const Form = () => {
                   />
                 </svg>
                 <div class="text">
-                  <div class="title1">
+                  <div class="title1" style={{textAlign:"center"}}>
                     Your entry has been recorded!! Please take a note of your
                     token : {token}
                   </div>
-                  <div class="info">
+                  <div class="info" style={{textAlign:"center"}}>
                     We have sent a mail with token details. Please refer the
                     mail to track the live update,
                     <br />
@@ -506,7 +506,7 @@ const Form = () => {
                     </span>
                   </div>
                 </div>
-                <div class="buttons" style={{ paddingBottom: "30px" }}>
+                <div class="buttons" style={{ paddingBottom: "30px",display:"flex",justifyContent:"center" }}>
                   <br />
 
                   <div
