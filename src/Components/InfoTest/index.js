@@ -61,11 +61,16 @@ const Info = () => {
       .get("https://trusting-dubinsky-942dd3.netlify.app/isQuiz")
       .then(function (response) {
         setMakeQuiz(response.data);
+        if(response.data[0].isQuiz===false)
+        {
+          setFlow('Timeout');
+        }
       });
     axios
       .get("https://trusting-dubinsky-942dd3.netlify.app/getQuestions")
       .then(function (response) {
         setQuestions(response.data);
+
       });
   };
 
@@ -684,6 +689,58 @@ const Info = () => {
             </div>
           </div>
         )}
+
+
+{flow === "Timeout" && (
+          <div
+            style={{
+              height: "95%",
+              width: "90%",
+              backgroundColor: "white",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <div style={{ width: "100%" }}>
+              <img
+                src="https://wallpaperaccess.com/full/736146.jpg"
+                width="100%"
+                height="100px"
+                style={{
+                  objectFit: "cover",
+                  borderTopLeftRadius: 45,
+                  borderTopRightRadius: 45,
+                }}
+              />
+            </div>
+            <div
+              style={{
+                flex: 3,
+                backgroundColor: "#21201E",
+                marginTop: "-10px",
+                padding: "30px 20px 0px 20px",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <h2 style={{ color: "white" }}>
+                 You have exeeded the time bound for the test.
+                </h2>
+                <h2 style={{ color: "white" }}>
+                  Thank you for your time and better luck next time :)
+                </h2>
+                <h3 style={{ color: "tomato" }}> Test Status: Ended</h3>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
       ): (
 <div style={{display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
