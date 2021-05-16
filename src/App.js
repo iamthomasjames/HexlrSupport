@@ -8,8 +8,9 @@ import {
 } from "react-router-dom";
 import Entry from './Entry'
 import Track from './Components/TrackPage/Track'
-import Info from "./Components/Info";
 import Bill from "./Components/BillPage";
+import Test from "./Components/Test/Test";
+
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
           </Route>
           <Route path="/bill" exact>
             <Bill />
+          </Route>
+          <Route path="/test" exact>
+            <Test />
           </Route>
         </Switch>
 
