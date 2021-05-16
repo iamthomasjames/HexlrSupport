@@ -23,10 +23,14 @@ const Info = () => {
   }, []);
   useEffect(() => {
     getStatus();
-  },[]);
+  });
 
   const getStatus = () => {
     
+    if(localStorage.getItem('quiz_ended'))
+    {
+      setFlow("ended");
+    }
       if (localStorage.getItem("_werrty")) {
         if(isMakeQuiz&&isMakeQuiz[0].isAvailable===true)
         {
@@ -568,6 +572,7 @@ const Info = () => {
                             postAnswers
                           )
                           .then((res) => {
+                            localStorage.setItem('quiz_end','ended');
                             setFlow("ended");
                           });
                       } else {
