@@ -453,9 +453,9 @@ const Info = () => {
                 <input
                   type="radio"
                   style={{ width: "30px", height: "30px" }}
-                  value="answer1"
+                  value="answer2"
                   name="answer"
-                  id="answer1"
+                  id="answer2"
                 />
                 <p
                   style={{
@@ -470,9 +470,9 @@ const Info = () => {
                 <input
                   type="radio"
                   style={{ width: "30px", height: "30px" }}
-                  value="answer1"
+                  value="answer3"
                   name="answer"
-                  id="answer1"
+                  id="answer3"
                 />
                 <p
                   style={{
@@ -487,9 +487,9 @@ const Info = () => {
                 <input
                   type="radio"
                   style={{ width: "30px", height: "30px" }}
-                  value="answer1"
+                  value="answer4"
                   name="answer"
-                  id="answer1"
+                  id="answer4"
                 />
                 <p
                   style={{
