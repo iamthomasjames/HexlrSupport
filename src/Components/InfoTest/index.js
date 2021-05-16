@@ -69,6 +69,7 @@ const Info = () => {
     axios
       .get("https://trusting-dubinsky-942dd3.netlify.app/getQuestions")
       .then(function (response) {
+        response.data.sort(function (a, b) {return Math.random() - 0.5;});
         setQuestions(response.data);
 
       });
