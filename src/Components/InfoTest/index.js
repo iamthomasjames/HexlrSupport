@@ -4,11 +4,16 @@ import "../../Test.css";
 import axios from "axios";
 import loading1 from "../../Assets/Images/loading.gif";
 import Webcam from "react-webcam";
-import camera from '../../Assets/Images/camera.svg'
+import camera from "../../Assets/Images/camera.svg";
+import welldone from "../../Assets/Images/welldone.svg";
+import error from "../../Assets/Images/error.svg";
+import over from "../../Assets/Images/over.svg";
+
+
 
 const Info = () => {
   const hour = new Date();
-  const [flow, setFlow] = useState("profile");
+  const [flow, setFlow] = useState("ended");
   const [Name, setName] = useState();
   const [email, setEmail] = useState();
   const [phone, setPhone] = useState();
@@ -20,7 +25,6 @@ const Info = () => {
   const [isMakeQuiz, setMakeQuiz] = useState();
   const [isCamera, setCameraStatus] = useState(false);
   const [screenCaptureList, setscreenCaptureList] = useState([]);
-
 
   const videoConstraints = {
     width: 1280,
@@ -468,10 +472,19 @@ const Info = () => {
                   }}
                 />
                 {!isCamera && (
-                  <div style={{display:'flex',justifyItems:'center',flexDirection:'column',alignItems:'center'}}>
-                    <img src={camera} width="400" height="400"/>
-                    <h2 style={{color:'white'}}>Please accept the web camera pop to start the test</h2>
-                    <h2 style={{color:'white'}}>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyItems: "center",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img src={camera} width="400" height="400" />
+                    <h2 style={{ color: "white" }}>
+                      Please accept the web camera pop to start the test
+                    </h2>
+                    <h2 style={{ color: "white" }}>
                       Take a note that you are under camera surveillance during
                       the test!!
                     </h2>
@@ -774,18 +787,40 @@ const Info = () => {
                 <div
                   style={{
                     display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "column",
-                    alignItems: "center",
+                    flexDirection:'column'
                   }}
                 >
-                  <h2 style={{ color: "white" }}>
-                    Your Text Result has been submitted. Thanks for your time
-                    with Hexlr. will keep in touch with you shortly.
-                  </h2>
-                  <h2 style={{ color: "white" }}>
-                    Enjoy your rest of the day :)
-                  </h2>
+                  <div
+                    style={{
+                      display:'flex',
+                      alignItems: "center",
+                      justifyContent: "center",
+                     
+                    }}
+                  >
+                    <img src={welldone} alt="" width={300} height={300}  />
+                  </div>
+                  <div
+                    style={{
+                       display:'flex',
+                       flexDirection:'column',
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <>
+                    <h2 style={{ color: "gold" }}>
+                    Congratulations.....
+                    </h2>
+                    <h2 style={{ color: "white" }}>
+                      Your Text Result has been submitted. Thanks for your time
+                      with Hexlr. 
+                    </h2>
+                    <h2 style={{ color: "white" }}>
+                    We  will keep in touch with you shortly.Enjoy your rest of the day :)
+                    </h2>
+                    </>
+                  </div>
                 </div>
               </div>
             </div>
@@ -824,12 +859,29 @@ const Info = () => {
                 <div
                   style={{
                     display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "column",
-                    alignItems: "center",
+                    flexDirection:'column'
                   }}
                 >
-                  <h2 style={{ color: "white" }}>
+                  <div
+                    style={{
+                      display:'flex',
+                      alignItems: "center",
+                      justifyContent: "center",
+                     
+                    }}
+                  >
+                    <img src={error} alt="" width={300} height={300}  />
+                  </div>
+                  <div
+                    style={{
+                      display:'flex',
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexDirection:'column'
+                    }}
+                  >
+                    <>
+                    <h2 style={{ color: "white" }}>
                     Sorry we have noticed some malpractice from you during the
                     course. <br /> Test is now closed and you no longer be able
                     to continue the test.
@@ -838,6 +890,78 @@ const Info = () => {
                     Thank you for your time and better luck next time :)
                   </h2>
                   <h3 style={{ color: "tomato" }}> Test Status: Ended</h3>
+                    </>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+
+{flow === "over" && (
+            <div
+              style={{
+                height: "95%",
+                width: "90%",
+                backgroundColor: "white",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <div style={{ width: "100%" }}>
+                <img
+                  src="https://wallpaperaccess.com/full/736146.jpg"
+                  width="100%"
+                  height="100px"
+                  style={{
+                    objectFit: "cover",
+                    borderTopLeftRadius: 45,
+                    borderTopRightRadius: 45,
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  flex: 3,
+                  backgroundColor: "#21201E",
+                  marginTop: "-10px",
+                  padding: "30px 20px 0px 20px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection:'column'
+                  }}
+                >
+                  <div
+                    style={{
+                      display:'flex',
+                      alignItems: "center",
+                      justifyContent: "center",
+                     
+                    }}
+                  >
+                    <img src={over} alt="" width={300} height={300}  />
+                  </div>
+                  <div
+                    style={{
+                      display:'flex',
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexDirection:'column'
+                    }}
+                  >
+                    <>
+                    <h2 style={{ color: "white" }}>
+                    You have already submited the test.
+                  </h2>
+                  <h2 style={{ color: "white" }}>
+                    Our team will connect with you with the test result soon :)
+                  </h2>
+                  <h3 style={{ color: "tomato" }}> Test Status: Ended</h3>
+                    </>
+                  </div>
                 </div>
               </div>
             </div>
