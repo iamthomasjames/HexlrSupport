@@ -141,7 +141,7 @@ const Info = () => {
                 }}
               >
                 <div>
-                  <h2 style={{ color: "white" }}>Job discription</h2>
+                  <h2 style={{ color: "white" }}>Job description</h2>
                   <hr />
                   <p style={{ color: "white" }}>
                     <span
@@ -154,7 +154,7 @@ const Info = () => {
                       Hexlr Technologies
                     </span>{" "}
                     looking for junior programmers (0yrs-1yrs) who has knowledge
-                    in html,ccs and javascript.
+                    on html,ccs and javascript.
                   </p>
                   <p style={{ color: "white" }}>
                     <span
@@ -202,7 +202,7 @@ const Info = () => {
                     </span>
                     <br />
                     If the candidates shows interest and improvements on all the
-                    basis. Hexlr Technologies will continue with the hiring
+                    basis, Hexlr Technologies will continue with the hiring
                     process.
                   </p>
                   <p style={{ color: "white" }}>
@@ -293,7 +293,7 @@ const Info = () => {
 
                   <p style={{ color: "white" }}>
                     <p style={{ color: "white" }}>
-                      1. Total you will be provided 25 objuective questions.
+                      1. Total you will be provided 30 objective questions.
                     </p>
                     <p style={{ color: "white" }}>
                       2. All right answer will carry 1 mark each and no negative
@@ -813,7 +813,7 @@ const Info = () => {
                     Congratulations.....
                     </h2>
                     <h2 style={{ color: "white" }}>
-                      Your Text Result has been submitted. Thanks for your time
+                      Your Test Result has been submitted. Thanks for your time
                       with Hexlr. 
                     </h2>
                     <h2 style={{ color: "white" }}>
