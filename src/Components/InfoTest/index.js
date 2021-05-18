@@ -13,7 +13,7 @@ import over from "../../Assets/Images/over.svg";
 
 const Info = () => {
   const hour = new Date();
-  const [flow, setFlow] = useState("ended");
+  const [flow, setFlow] = useState("profile");
   const [Name, setName] = useState();
   const [email, setEmail] = useState();
   const [phone, setPhone] = useState();
