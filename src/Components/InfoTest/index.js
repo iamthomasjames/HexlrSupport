@@ -13,7 +13,7 @@ import over from "../../Assets/Images/over.svg";
 
 const Info = () => {
   const hour = new Date();
-  const [flow, setFlow] = useState("Start");
+  const [flow, setFlow] = useState("profile");
   const [Name, setName] = useState();
   const [email, setEmail] = useState();
   const [phone, setPhone] = useState();
@@ -41,28 +41,28 @@ const Info = () => {
 
   const getStatus = () => {
     setInterval(() => {
-      // capture();
+      capture();
     }, 15000);
 
-    // if (localStorage.getItem("quiz_ended")) {
-    //   setFlow("ended");
-    // }
-    // if (localStorage.getItem("_werrty")) {
-    //   if (isMakeQuiz && isMakeQuiz[0].isAvailable === true) {
-    //     setFlow("profile");
-    //     localStorage.clear();
-    //   } else {
-    //     setFlow("wrong");
-    //   }
-    // }
+    if (localStorage.getItem("quiz_ended")) {
+      setFlow("ended");
+    }
+    if (localStorage.getItem("_werrty")) {
+      if (isMakeQuiz && isMakeQuiz[0].isAvailable === true) {
+        setFlow("profile");
+        localStorage.clear();
+      } else {
+        setFlow("wrong");
+      }
+    }
 
-    // document.addEventListener("visibilitychange", () => {
-    //   document.title = document.visibilityState;
-    //   if (document.visibilityState === "hidden") {
-    //     localStorage.setItem("_werrty", document.visibilityState);
-    //     setFlow("wrong");
-    //   }
-    // });
+    document.addEventListener("visibilitychange", () => {
+      document.title = document.visibilityState;
+      if (document.visibilityState === "hidden") {
+        localStorage.setItem("_werrty", document.visibilityState);
+        setFlow("wrong");
+      }
+    });
   };
 
   const webcamRef = React.useRef(null);
