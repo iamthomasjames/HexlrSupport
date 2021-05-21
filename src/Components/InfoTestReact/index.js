@@ -82,6 +82,12 @@ const Info = () => {
         setFlow("wrong");
       }
     });
+
+    window.onblur = function () {
+      localStorage.setItem("_werrty", document.visibilityState);
+      setFlow("wrong");
+    };
+
   };
 
   const webcamRef = React.useRef(null);
@@ -194,9 +200,10 @@ const Info = () => {
                       {" "}
                       Selection procedure:{" "}
                     </span>
-                    <br />A test will ve conducted on the bases of javascript and React JS. Selected candidates will be given an assignment
-                    to explore the ideas. Once that is submitted our team will
-                    check the assigment. On basis of test result and
+                    <br />A test will ve conducted on the bases of javascript
+                    and React JS. Selected candidates will be given an
+                    assignment to explore the ideas. Once that is submitted our
+                    team will check the assigment. On basis of test result and
                     assignment submission, candidates will be selected for the
                     next round.
                   </p>
@@ -213,7 +220,8 @@ const Info = () => {
                     </span>
                     <br />
                     Selected candidates will undergo a training based on "React
-                    js/React Native" for 2 months if you doesnt have handson experiance.
+                    js/React Native" for 2 months if you doesnt have handson
+                    experiance.
                   </p>
                   <p style={{ color: "white" }}>
                     <span
@@ -326,11 +334,13 @@ const Info = () => {
                       marks.
                     </p>
                     <p style={{ color: "white" }}>
-                      3. If you try to close the window,switch the tabs,minimize the tab or off the screen, test
-                      will be closed.
+                      3. If you try to close the window,switch the tabs,minimize
+                      the tab or off the screen, test will be closed.
                     </p>
                     <p style={{ color: "white" }}>
-                      4. Web cam will be turned on turing the test. There wont be any movement allowed during the test. if system finds any such activities, your test will be ignored.
+                      4. Web cam will be turned on turing the test. There wont
+                      be any movement allowed during the test. if system finds
+                      any such activities, your test will be ignored.
                     </p>
                     <p style={{ color: "white" }}>
                       5. Total time given will be 25 minutes.
@@ -346,6 +356,9 @@ const Info = () => {
                     <p style={{ color: "white" }}>
                       8. Provide your details correctly so that team can connect
                       with the results.
+                    </p>
+                    <p style={{ color: "white" }}>
+                      9.Your screen will be captured and monitored during the test.
                     </p>
                   </p>
                   <br />
