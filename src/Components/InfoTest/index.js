@@ -181,7 +181,7 @@ const Info = () => {
                       Hexlr Technologies
                     </span>{" "}
                     looking for junior programmers (0yrs-1yrs) who has knowledge
-                    on html,ccs and javascript.
+                    on html,css and javascript.
                   </p>
                   <p style={{ color: "white" }}>
                     <span

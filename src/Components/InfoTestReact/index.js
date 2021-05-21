@@ -181,7 +181,7 @@ const Info = () => {
                       Hexlr Technologies
                     </span>{" "}
                     looking for junior programmers (0yrs-1yrs) who has knowledge
-                    on html,ccs and javascript.
+                    on html,css,js and React JS.
                   </p>
                   <p style={{ color: "white" }}>
                     <span
@@ -194,10 +194,9 @@ const Info = () => {
                       {" "}
                       Selection procedure:{" "}
                     </span>
-                    <br />A test will ve conducted on the bases of html,css and
-                    javascript. Selected candidates will be given an assignment
+                    <br />A test will ve conducted on the bases of javascript and React JS. Selected candidates will be given an assignment
                     to explore the ideas. Once that is submitted our team will
-                    check the assigment and on basis of test result and
+                    check the assigment. On basis of test result and
                     assignment submission, candidates will be selected for the
                     next round.
                   </p>
@@ -213,8 +212,8 @@ const Info = () => {
                       Training Structure:{" "}
                     </span>
                     <br />
-                    Selected candidates will undergo a traning based on "React
-                    js/React Native" for 2 months.
+                    Selected candidates will undergo a training based on "React
+                    js/React Native" for 2 months if you doesnt have handson experiance.
                   </p>
                   <p style={{ color: "white" }}>
                     <span
@@ -249,7 +248,7 @@ const Info = () => {
                       you.
                     </p>
                     <p style={{ color: "white" }}>
-                      2. During Training period all the expenses will be taken
+                      2. During Training period, all the expenses will be taken
                       by the candidate.
                     </p>
                     <p style={{ color: "white" }}>
@@ -258,11 +257,11 @@ const Info = () => {
                     </p>
                     <p style={{ color: "white" }}>
                       4. Certificates will be provided only after completing the
-                      courses.
+                      course.
                     </p>
                     <p style={{ color: "white" }}>
                       5. Candidate must complete the traning process in order to
-                      get into hiring process
+                      get into hiring process.
                     </p>
                   </p>
                   <input
@@ -327,11 +326,11 @@ const Info = () => {
                       marks.
                     </p>
                     <p style={{ color: "white" }}>
-                      3. If you try to close the window or switch the tab test
+                      3. If you try to close the window,switch the tabs,minimize the tab or off the screen, test
                       will be closed.
                     </p>
                     <p style={{ color: "white" }}>
-                      4. Web cam will be turned on turing the test.
+                      4. Web cam will be turned on turing the test. There wont be any movement allowed during the test. if system finds any such activities, your test will be ignored.
                     </p>
                     <p style={{ color: "white" }}>
                       5. Total time given will be 25 minutes.
