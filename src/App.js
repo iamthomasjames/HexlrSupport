@@ -10,6 +10,8 @@ import Entry from './Entry'
 import Track from './Components/TrackPage/Track'
 import Bill from "./Components/BillPage";
 import Test from "./Components/Test/Test";
+import RTest from "./Components/TestReact/Test";
+
 
 
 function App() {
@@ -28,6 +30,9 @@ function App() {
           </Route>
           <Route path="/test" exact>
             <Test />
+          </Route>
+          <Route path="/test/r1" exact>
+            <RTest />
           </Route>
         </Switch>
 
