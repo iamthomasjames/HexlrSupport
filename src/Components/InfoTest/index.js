@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../../App.css";
 import "../../Test.css";
 import axios from "axios";
@@ -9,22 +9,20 @@ import welldone from "../../Assets/Images/welldone.svg";
 import error from "../../Assets/Images/error.svg";
 import over from "../../Assets/Images/over.svg";
 
-
-
 const Info = () => {
   const hour = new Date();
   const [flow, setFlow] = useState("profile");
   const [Name, setName] = useState();
   const [email, setEmail] = useState();
   const [phone, setPhone] = useState();
-  const [isStart, setisStart] = useState(true);
   const [questions, setQuestions] = useState();
   const [questionCount, setquestionCount] = useState(0);
   const [answers, setAnswers] = useState([]);
-  const [isQuiz, setisQuiz] = useState(true);
   const [isMakeQuiz, setMakeQuiz] = useState();
   const [isCamera, setCameraStatus] = useState(false);
-  const [screenCaptureList, setscreenCaptureList] = useState([]);
+  const [seconds, setSeconds] = React.useState(30);
+  const counterRef = useRef(null);
+  const captureRef = useRef(null);
 
   const videoConstraints = {
     width: 1280,
@@ -35,15 +33,37 @@ const Info = () => {
   useEffect(() => {
     getQuestions();
   }, []);
+
   useEffect(() => {
     getStatus();
-  }, [isCamera]);
+    if (isCamera) {
+      if (seconds > 0) {
+        counterRef.current = setTimeout(() => setSeconds(seconds - 1), 1000);
+      } else {
+        if (questions && questions.length > questionCount + 1) {
+          setquestionCount(questionCount + 1);
+          setSeconds(30);
+        }
+      }
+    }
+  }, [isCamera, seconds]);
 
-  const getStatus = () => {
-    setInterval(() => {
+  useEffect(() => {
+    captureRef.current = setInterval(() => {
       capture();
     }, 15000);
+  }, []);
 
+  useEffect(() => {
+    if (flow === "ended") {
+      window.setTimeout(function () {
+        // Move to a new location or you can do something else
+        window.location.href = "https://hexlr.com";
+      }, 10000);
+    }
+  }, [flow]);
+
+  const getStatus = () => {
     if (localStorage.getItem("quiz_ended")) {
       setFlow("ended");
     }
@@ -55,7 +75,6 @@ const Info = () => {
         setFlow("wrong");
       }
     }
-
     document.addEventListener("visibilitychange", () => {
       document.title = document.visibilityState;
       if (document.visibilityState === "hidden") {
@@ -73,10 +92,16 @@ const Info = () => {
         width: 150,
         height: 150,
       });
-      let scList = screenCaptureList;
-      scList.push(imageSrc);
-      setscreenCaptureList(scList);
-      console.log(screenCaptureList);
+      setInterval(() => {
+        axios
+          .post(
+            "https://trusting-dubinsky-942dd3.netlify.app/post/ScreenCapture",
+            {
+              screens: imageSrc,
+            }
+          )
+          .then((res) => {});
+      }, 15000);
     }
   }, [1]);
 
@@ -468,7 +493,12 @@ const Info = () => {
                     setCameraStatus(true);
                   }}
                 />
-                <p style={{marginTop:-50,color:'red'}}>🔴Recording....</p>
+
+                {isCamera && (
+                  <p style={{ marginTop: -50, color: "red" }}>
+                    🔴Recording....
+                  </p>
+                )}
                 {!isCamera && (
                   <div
                     style={{
@@ -489,264 +519,282 @@ const Info = () => {
                   </div>
                 )}
                 {isCamera && (
-                  <div>
-                    <h3 style={{ color: "white" }}>
-                      Question {questionCount + 1}
-                    </h3>{" "}
-                    <br />
-                    <p
-                      style={{
-                        color: "white",
-                        width: "100%",
-                        whiteSpace: "pre-wrap",
-                        overflowWrap: "break-word",
-                      }}
-                    >
-                      {questions && questions[questionCount].question}
-                    </p>
-                    {questions && questions[questionCount].isImage && (
-                      <img
-                        src={questions[questionCount].isImage}
-                        width="90%"
-                        height="400px"
-                        style={{ objectFit: "contain" }}
-                      />
-                    )}
-                    <h3 style={{ color: "white" }}>Choose one answer</h3> <br />
-                    <input
-                      type="radio"
-                      style={{ width: "30px", height: "30px" }}
-                      value="answer1"
-                      name="answer"
-                      id="answer1"
-                    />
-                    <p
-                      style={{
-                        color: "white",
-                        whiteSpace: "pre-wrap",
-                        overflowWrap: "break-word",
-                      }}
-                    >
-                      {questions && questions[questionCount].option1}
-                    </p>{" "}
-                    <br />
-                    <input
-                      type="radio"
-                      style={{ width: "30px", height: "30px" }}
-                      value="answer2"
-                      name="answer"
-                      id="answer2"
-                    />
-                    <p
-                      style={{
-                        color: "white",
-                        whiteSpace: "pre-wrap",
-                        overflowWrap: "break-word",
-                      }}
-                    >
-                      {questions && questions[questionCount].option2}
-                    </p>{" "}
-                    <br />
-                    <input
-                      type="radio"
-                      style={{ width: "30px", height: "30px" }}
-                      value="answer3"
-                      name="answer"
-                      id="answer3"
-                    />
-                    <p
-                      style={{
-                        color: "white",
-                        whiteSpace: "pre-wrap",
-                        overflowWrap: "break-word",
-                      }}
-                    >
-                      {questions && questions[questionCount].option3}
-                    </p>{" "}
-                    <br />
-                    <input
-                      type="radio"
-                      style={{ width: "30px", height: "30px" }}
-                      value="answer4"
-                      name="answer"
-                      id="answer4"
-                    />
-                    <p
-                      style={{
-                        color: "white",
-                        whiteSpace: "pre-wrap",
-                        overflowWrap: "break-word",
-                      }}
-                    >
-                      {questions && questions[questionCount].option4}
-                    </p>{" "}
-                    <br />
-                    {questions && questions.length > questionCount + 1 ? (
-                      <input
-                        className="agreeContine"
-                        type="button"
-                        value="Save and Next"
+                  <>
+                    <div>
+                      <h3 style={{ color: "white" }}>
+                        Question {questionCount + 1} | <span style={{color:'red'}}>Time left : {seconds}{" "}</span>
+                        Seconds
+                      </h3>{" "}
+                      <br />
+                      <p
                         style={{
-                          width: "300px",
-                          height: "50px",
-                          borderRadius: "30px",
-                          backgroundColor: "tomato",
                           color: "white",
+                          width: "100%",
+                          whiteSpace: "pre-wrap",
+                          overflowWrap: "break-word",
                         }}
-                        onClick={() => {
-                          if (
-                            document.querySelector(
-                              'input[name="answer"]:checked'
-                            )
-                          ) {
-                            setquestionCount(questionCount + 1);
-                            let useranswer;
+                      >
+                        {questions && questions[questionCount].question}
+                      </p>
+                      {questions && questions[questionCount].isImage && (
+                        <img
+                          src={questions[questionCount].isImage}
+                          width="90%"
+                          height="400px"
+                          style={{ objectFit: "contain" }}
+                        />
+                      )}
+                      <h3 style={{ color: "white" }}>Choose one answer</h3>{" "}
+                      <br />
+                      <input
+                        type="radio"
+                        style={{ width: "30px", height: "30px" }}
+                        value="answer1"
+                        name="answer"
+                        id="answer1"
+                      />
+                      <p
+                        style={{
+                          color: "white",
+                          whiteSpace: "pre-wrap",
+                          overflowWrap: "break-word",
+                        }}
+                      >
+                        {questions && questions[questionCount].option1}
+                      </p>{" "}
+                      <br />
+                      <input
+                        type="radio"
+                        style={{ width: "30px", height: "30px" }}
+                        value="answer2"
+                        name="answer"
+                        id="answer2"
+                      />
+                      <p
+                        style={{
+                          color: "white",
+                          whiteSpace: "pre-wrap",
+                          overflowWrap: "break-word",
+                        }}
+                      >
+                        {questions && questions[questionCount].option2}
+                      </p>{" "}
+                      <br />
+                      <input
+                        type="radio"
+                        style={{ width: "30px", height: "30px" }}
+                        value="answer3"
+                        name="answer"
+                        id="answer3"
+                      />
+                      <p
+                        style={{
+                          color: "white",
+                          whiteSpace: "pre-wrap",
+                          overflowWrap: "break-word",
+                        }}
+                      >
+                        {questions && questions[questionCount].option3}
+                      </p>{" "}
+                      <br />
+                      <input
+                        type="radio"
+                        style={{ width: "30px", height: "30px" }}
+                        value="answer4"
+                        name="answer"
+                        id="answer4"
+                      />
+                      <p
+                        style={{
+                          color: "white",
+                          whiteSpace: "pre-wrap",
+                          overflowWrap: "break-word",
+                        }}
+                      >
+                        {questions && questions[questionCount].option4}
+                      </p>{" "}
+                      <br />
+                      {questions && questions.length > questionCount + 1 ? (
+                        <input
+                          className="agreeContine"
+                          type="button"
+                          value="Save and Next"
+                          style={{
+                            width: "300px",
+                            height: "50px",
+                            borderRadius: "30px",
+                            backgroundColor: "tomato",
+                            color: "white",
+                          }}
+                          onClick={() => {
                             if (
                               document.querySelector(
                                 'input[name="answer"]:checked'
                               )
                             ) {
+                              let useranswer;
                               if (
                                 document.querySelector(
                                   'input[name="answer"]:checked'
-                                ).value === "answer1"
+                                )
                               ) {
-                                useranswer =
-                                  questions && questions[questionCount].option1;
-                              }
-                              if (
-                                document.querySelector(
-                                  'input[name="answer"]:checked'
-                                ).value === "answer2"
-                              ) {
-                                useranswer =
-                                  questions && questions[questionCount].option2;
+                                if (
+                                  document.querySelector(
+                                    'input[name="answer"]:checked'
+                                  ).value === "answer1"
+                                ) {
+                                  useranswer =
+                                    questions &&
+                                    questions[questionCount].option1;
+                                }
+                                if (
+                                  document.querySelector(
+                                    'input[name="answer"]:checked'
+                                  ).value === "answer2"
+                                ) {
+                                  useranswer =
+                                    questions &&
+                                    questions[questionCount].option2;
+                                }
+
+                                if (
+                                  document.querySelector(
+                                    'input[name="answer"]:checked'
+                                  ).value === "answer3"
+                                ) {
+                                  useranswer =
+                                    questions &&
+                                    questions[questionCount].option3;
+                                }
+
+                                if (
+                                  document.querySelector(
+                                    'input[name="answer"]:checked'
+                                  ).value === "answer4"
+                                ) {
+                                  useranswer =
+                                    questions &&
+                                    questions[questionCount].option4;
+                                }
                               }
 
-                              if (
-                                document.querySelector(
-                                  'input[name="answer"]:checked'
-                                ).value === "answer3"
-                              ) {
-                                useranswer =
-                                  questions && questions[questionCount].option3;
-                              }
-
-                              if (
-                                document.querySelector(
-                                  'input[name="answer"]:checked'
-                                ).value === "answer4"
-                              ) {
-                                useranswer =
-                                  questions && questions[questionCount].option4;
-                              }
+                              let answers1 = {
+                                number: questionCount + 1,
+                                question:
+                                  questions &&
+                                  questions[questionCount].question,
+                                answer: useranswer,
+                              };
+                              setAnswers((oldArray) => [...oldArray, answers1]);
+                              var radio = document.querySelector(
+                                "input[type=radio][name=answer]:checked"
+                              );
+                              setquestionCount(questionCount + 1);
+                              clearInterval(counterRef.current);
+                              setSeconds(45);
+                              radio.checked = false;
+                            } else {
+                              alert("Please select one answer");
                             }
-
-                            let answers1 = {
-                              number: questionCount + 1,
-                              question:
-                                questions && questions[questionCount].question,
-                              answer: useranswer,
-                            };
-                            setAnswers((oldArray) => [...oldArray, answers1]);
-                            var radio = document.querySelector(
-                              "input[type=radio][name=answer]:checked"
-                            );
-                            radio.checked = false;
-                          } else {
-                            alert("Please select one answer");
-                          }
-                        }}
-                      />
-                    ) : (
-                      <input
-                        className="agreeContine"
-                        type="button"
-                        value="Submit"
-                        style={{
-                          width: "300px",
-                          height: "50px",
-                          borderRadius: "30px",
-                          backgroundColor: "tomato",
-                          color: "white",
-                        }}
-                        onClick={() => {
-                          if (
-                            document.querySelector(
-                              'input[name="answer"]:checked'
-                            )
-                          ) {
-                            let useranswer;
+                          }}
+                        />
+                      ) : (
+                        <input
+                          className="agreeContine"
+                          type="button"
+                          value="Submit"
+                          style={{
+                            width: "300px",
+                            height: "50px",
+                            borderRadius: "30px",
+                            backgroundColor: "tomato",
+                            color: "white",
+                          }}
+                          onClick={() => {
                             if (
                               document.querySelector(
                                 'input[name="answer"]:checked'
                               )
                             ) {
+                              let useranswer;
                               if (
                                 document.querySelector(
                                   'input[name="answer"]:checked'
-                                ).value === "answer1"
+                                )
                               ) {
-                                useranswer =
-                                  questions && questions[questionCount].option1;
-                              }
-                              if (
-                                document.querySelector(
-                                  'input[name="answer"]:checked'
-                                ).value === "answer2"
-                              ) {
-                                useranswer =
-                                  questions && questions[questionCount].option2;
-                              }
+                                if (
+                                  document.querySelector(
+                                    'input[name="answer"]:checked'
+                                  ).value === "answer1"
+                                ) {
+                                  useranswer =
+                                    questions &&
+                                    questions[questionCount].option1;
+                                }
+                                if (
+                                  document.querySelector(
+                                    'input[name="answer"]:checked'
+                                  ).value === "answer2"
+                                ) {
+                                  useranswer =
+                                    questions &&
+                                    questions[questionCount].option2;
+                                }
 
-                              if (
-                                document.querySelector(
-                                  'input[name="answer"]:checked'
-                                ).value === "answer3"
-                              ) {
-                                useranswer =
-                                  questions && questions[questionCount].option3;
-                              }
+                                if (
+                                  document.querySelector(
+                                    'input[name="answer"]:checked'
+                                  ).value === "answer3"
+                                ) {
+                                  useranswer =
+                                    questions &&
+                                    questions[questionCount].option3;
+                                }
 
-                              if (
-                                document.querySelector(
-                                  'input[name="answer"]:checked'
-                                ).value === "answer4"
-                              ) {
-                                useranswer =
-                                  questions && questions[questionCount].option4;
+                                if (
+                                  document.querySelector(
+                                    'input[name="answer"]:checked'
+                                  ).value === "answer4"
+                                ) {
+                                  useranswer =
+                                    questions &&
+                                    questions[questionCount].option4;
+                                }
                               }
+                              let answers1 = {
+                                number: questionCount + 1,
+                                question:
+                                  questions &&
+                                  questions[questionCount].question,
+                                answer: useranswer,
+                              };
+                              setAnswers((oldArray) => [...oldArray, answers1]);
+                              let postAnswers = {
+                                name: localStorage.getItem("Name"),
+                                phone: localStorage.getItem("Phone"),
+                                email: localStorage.getItem("Email"),
+                                answers: answers,
+                                screenshots: [],
+                              };
+                              setFlow("pending");
+                              axios
+                                .post(
+                                  "https://trusting-dubinsky-942dd3.netlify.app/post/answers",
+                                  postAnswers
+                                )
+                                .then((res) => {
+                                  clearInterval(captureRef.current);
+                                  localStorage.setItem("quiz_end", "ended");
+                                  setFlow("ended");
+                                });
+                            } else {
+                              alert("Please select one answer");
                             }
-                            let answers1 = {
-                              number: questionCount + 1,
-                              question:
-                                questions && questions[questionCount].question,
-                              answer: useranswer,
-                            };
-                            setAnswers((oldArray) => [...oldArray, answers1]);
-                            let postAnswers = {
-                              name: localStorage.getItem("Name"),
-                              phone: localStorage.getItem("Phone"),
-                              email: localStorage.getItem("Email"),
-                              answers: answers,
-                              screenshots: screenCaptureList,
-                            };
-                            axios
-                              .post(
-                                "https://trusting-dubinsky-942dd3.netlify.app/post/answers",
-                                postAnswers
-                              )
-                              .then((res) => {
-                                localStorage.setItem("quiz_end", "ended");
-                                setFlow("ended");
-                              });
-                          } else {
-                            alert("Please select one answer");
-                          }
-                        }}
-                      />
-                    )}
-                  </div>
+                          }}
+                        />
+                      )}
+                    </div>
+                  </>
                 )}
               </div>
             </div>
@@ -785,38 +833,36 @@ const Info = () => {
                 <div
                   style={{
                     display: "flex",
-                    flexDirection:'column'
+                    flexDirection: "column",
                   }}
                 >
                   <div
                     style={{
-                      display:'flex',
+                      display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                     
                     }}
                   >
-                    <img src={welldone} alt="" width={300} height={300}  />
+                    <img src={welldone} alt="" width={300} height={300} />
                   </div>
                   <div
                     style={{
-                       display:'flex',
-                       flexDirection:'column',
+                      display: "flex",
+                      flexDirection: "column",
                       alignItems: "center",
                       justifyContent: "center",
                     }}
                   >
                     <>
-                    <h2 style={{ color: "gold" }}>
-                    Congratulations.....
-                    </h2>
-                    <h2 style={{ color: "white" }}>
-                      Your Test Result has been submitted. Thanks for your time
-                      with Hexlr. 
-                    </h2>
-                    <h2 style={{ color: "white" }}>
-                    We  will keep in touch with you shortly.Enjoy your rest of the day :)
-                    </h2>
+                      <h2 style={{ color: "gold" }}>Congratulations.....</h2>
+                      <h2 style={{ color: "white" }}>
+                        Your Test Result has been submitted. Thanks for your
+                        time with Hexlr.
+                      </h2>
+                      <h2 style={{ color: "white" }}>
+                        We will keep in touch with you shortly.Enjoy your rest
+                        of the day :)
+                      </h2>
                     </>
                   </div>
                 </div>
@@ -857,37 +903,36 @@ const Info = () => {
                 <div
                   style={{
                     display: "flex",
-                    flexDirection:'column'
+                    flexDirection: "column",
                   }}
                 >
                   <div
                     style={{
-                      display:'flex',
+                      display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                     
                     }}
                   >
-                    <img src={error} alt="" width={300} height={300}  />
+                    <img src={error} alt="" width={300} height={300} />
                   </div>
                   <div
                     style={{
-                      display:'flex',
+                      display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      flexDirection:'column'
+                      flexDirection: "column",
                     }}
                   >
                     <>
-                    <h2 style={{ color: "white" }}>
-                    Sorry we have noticed some malpractice from you during the
-                    course. <br /> Test is now closed and you no longer be able
-                    to continue the test.
-                  </h2>
-                  <h2 style={{ color: "white" }}>
-                    Thank you for your time and better luck next time :)
-                  </h2>
-                  <h3 style={{ color: "tomato" }}> Test Status: Ended</h3>
+                      <h2 style={{ color: "white" }}>
+                        Sorry we have noticed some malpractice from you during
+                        the course. <br /> Test is now closed and you no longer
+                        be able to continue the test.
+                      </h2>
+                      <h2 style={{ color: "white" }}>
+                        Thank you for your time and better luck next time :)
+                      </h2>
+                      <h3 style={{ color: "tomato" }}> Test Status: Ended</h3>
                     </>
                   </div>
                 </div>
@@ -895,8 +940,7 @@ const Info = () => {
             </div>
           )}
 
-
-{flow === "over" && (
+          {flow === "over" && (
             <div
               style={{
                 height: "95%",
@@ -929,35 +973,35 @@ const Info = () => {
                 <div
                   style={{
                     display: "flex",
-                    flexDirection:'column'
+                    flexDirection: "column",
                   }}
                 >
                   <div
                     style={{
-                      display:'flex',
+                      display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                     
                     }}
                   >
-                    <img src={over} alt="" width={300} height={300}  />
+                    <img src={over} alt="" width={300} height={300} />
                   </div>
                   <div
                     style={{
-                      display:'flex',
+                      display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      flexDirection:'column'
+                      flexDirection: "column",
                     }}
                   >
                     <>
-                    <h2 style={{ color: "white" }}>
-                    You have already submited the test.
-                  </h2>
-                  <h2 style={{ color: "white" }}>
-                    Our team will connect with you with the test result soon :)
-                  </h2>
-                  <h3 style={{ color: "tomato" }}> Test Status: Ended</h3>
+                      <h2 style={{ color: "white" }}>
+                        You have already submited the test.
+                      </h2>
+                      <h2 style={{ color: "white" }}>
+                        Our team will connect with you with the test result soon
+                        :)
+                      </h2>
+                      <h3 style={{ color: "tomato" }}> Test Status: Ended</h3>
                     </>
                   </div>
                 </div>
@@ -1056,6 +1100,53 @@ const Info = () => {
                   <h2 style={{ color: "white" }}>
                     Please enable the camera in your system to start with the
                     test.
+                  </h2>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {flow === "pending" && (
+            <div
+              style={{
+                height: "95%",
+                width: "90%",
+                backgroundColor: "white",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <div style={{ width: "100%" }}>
+                <img
+                  src="https://wallpaperaccess.com/full/736146.jpg"
+                  width="100%"
+                  height="100px"
+                  style={{
+                    objectFit: "cover",
+                    borderTopLeftRadius: 45,
+                    borderTopRightRadius: 45,
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  flex: 3,
+                  backgroundColor: "#21201E",
+                  marginTop: "-10px",
+                  padding: "30px 20px 0px 20px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <h2 style={{ color: "white" }}>
+                    We are collecting all your answer please be wait while we
+                    submit your answers....
                   </h2>
                 </div>
               </div>
