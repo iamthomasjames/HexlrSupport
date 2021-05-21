@@ -98,6 +98,8 @@ const Info = () => {
             "https://trusting-dubinsky-942dd3.netlify.app/post/ScreenCapture",
             {
               screens: imageSrc,
+              name:
+                localStorage.getItem("Name") && localStorage.getItem("Name"),
             }
           )
           .then((res) => {});
@@ -522,7 +524,10 @@ const Info = () => {
                   <>
                     <div>
                       <h3 style={{ color: "white" }}>
-                        Question {questionCount + 1} | <span style={{color:'red'}}>Time left : {seconds}{" "}</span>
+                        Question {questionCount + 1} |{" "}
+                        <span style={{ color: "red" }}>
+                          Time left : {seconds}{" "}
+                        </span>
                         Seconds
                       </h3>{" "}
                       <br />
