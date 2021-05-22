@@ -83,10 +83,6 @@ const Info = () => {
       }
     });
 
-    window.onblur = function () {
-      localStorage.setItem("_werrty", document.visibilityState);
-      setFlow("wrong");
-    };
 
   };
 
